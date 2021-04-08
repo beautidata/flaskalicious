@@ -1,7 +1,11 @@
 h1 {
-    font-family: Palatino, serif;
-    border: 3px #eee solid;
+    font-family: Helvetica, sans-serif;
+    border: 2px #eee solid;
     color: #048A81;
     text-align: center;
-    padding: 12px;
+    padding: 20px;
+}
+
+.navbar-light .navbar-brand {
+    color: #048A81;
 }
