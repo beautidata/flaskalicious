@@ -7,8 +7,8 @@ def index():
     return render_template('index.html')
 
 @app.route('/<page_name>')
-def other_page(page_name):
-    response = make_response('The page named %s does not exist.' % page_name, 404)
+def page_not_found(page_name):
+    response = make_response('The page named %s was not found.' % page_name, 404)
     return response
 
 if __name__ == '__main__':

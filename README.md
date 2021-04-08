@@ -1,6 +1,6 @@
 # flaskalicious
 
-a simple flask app to say hello
+a simple flask app to welcome you
 
 ### python 3.9.2
 
