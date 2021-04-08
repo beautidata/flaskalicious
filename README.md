@@ -9,6 +9,11 @@ to setup:
 pip install -r requirements.txt
 ```
 
+to test:
+```bash
+python app_test.py
+```
+
 to run:
 ```bash
 export FLASK_APP=app
