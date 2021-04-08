@@ -11,5 +11,7 @@ pip install -r requirements.txt
 
 to run:
 ```bash
+export FLASK_APP=hello
+export FLASK_ENV=development
 flask run
 ```
