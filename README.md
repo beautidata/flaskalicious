@@ -14,9 +14,16 @@ to test:
 python app_test.py
 ```
 
-to run:
+to initialize database:
+```bash
+python init_db.py
+```
+
+to serve app:
 ```bash
 export FLASK_APP=app
 export FLASK_ENV=development
 flask run
 ```
+
+navigate to `http://127.0.0.1:5000` in your favorite web browser and enjoy.
