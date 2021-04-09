@@ -7,7 +7,7 @@ class BasicTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/', content_type='html/text')
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'<title>flaskalicious</title>\n</head>\n<body>\n   <h1>welcome to flaskalicious</h1>\n</body>\n</html>' in response.data)
+        self.assertTrue(b'<title>welcome to flaskalicious</title>\n  </head>\n  <body>' in response.data)
     
     def test_not_found(self):
         tester = app.test_client(self)
