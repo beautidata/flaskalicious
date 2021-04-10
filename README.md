@@ -27,3 +27,17 @@ flask run
 ```
 
 navigate to `http://127.0.0.1:5000` in your favorite web browser and enjoy.
+
+### Docker
+
+to build:
+```bash
+docker build --tag flaskalicious .
+```
+
+to run:
+```bash
+docker run --publish 5000:5000 flaskalicious
+```
+
+navigate to `http://0.0.0.0:5000` in your favorite browser to view app.
