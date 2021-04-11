@@ -33,3 +33,15 @@ h2 {
 .navbar-light .navbar-brand {
     color: #048A81;
 }
+
+.btn-primary {
+    color: #dbd0c4;
+    background-color: #202C59;
+    border-color: #202C59;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #048A81;
+    border-color: #202C59;
+}
