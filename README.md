@@ -2,6 +2,15 @@
 
 a simple flask app to welcome you
 
+### configuration
+
+this app requires you to generate your own `settins.ini` file to store a secret key for managing sessions. that file should look like this
+
+```
+[flaskalicious]
+secret_key = paste_your_secret_key_here
+```
+
 ### python 3.9.2
 
 to setup:
