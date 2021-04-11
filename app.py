@@ -1,6 +1,7 @@
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, request, url_for, flash, redirect
 import sqlite3
 from werkzeug.exceptions import abort
+from configparser import ConfigParser
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
@@ -16,6 +17,9 @@ def get_post(post_id):
     return post
 
 app = Flask(__name__)
+config = ConfigParser()
+config.readfp(open('settings.ini'))
+app.config['SECRET_KEY'] = config.get('flaskalicious', 'secret_key')
 
 @app.route('/')
 def index():
@@ -33,6 +37,10 @@ def post(post_id):
 def page_not_found(page_name):
     response = make_response('The page named %s was not found.' % page_name, 404)
     return response
+
+@app.route('/create', methods=('GET', 'POST'))
+def create():
+    return render_template('create.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
