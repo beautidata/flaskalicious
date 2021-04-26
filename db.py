@@ -25,6 +25,19 @@ def init_db():
 
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf8"))
+    
+    cur = db.cursor()
+
+    cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
+            ('what is flask?', 'flask is a flexible web server gateway interface (wsgi) framework for python. \n flask is flexible.')
+            )
+
+    cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
+            ('why flask?', 'flask is lightweight, and using it requires few dependencies. flask templates are generated in jinja2.')
+            )
+
+    db.commit()
+    db.close()
 
 @click.command("init-db")
 @with_appcontext
