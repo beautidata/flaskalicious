@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 from flask import Flask, render_template, make_response, request, url_for, flash, redirect
 from flask_login import (
@@ -17,7 +18,8 @@ from db import init_db_command
 from user import User
 
 def get_db_connection():
-    conn = sqlite3.connect('database.db')
+    #conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('sqlite_db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -34,13 +36,19 @@ def get_google_provider_cfg():
 
 app = Flask(__name__)
 config = ConfigParser()
-config.readfp(open('settings.ini'))
+config.read_file(open('settings.ini'))
 app.config['SECRET_KEY'] = config.get('flaskalicious', 'secret_key')
 GOOGLE_CLIENT_ID = config.get('google', 'client_id')
 GOOGLE_CLIENT_SECRET = config.get('google', 'client_secret')
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
+
+try:
+    init_db_command()
+except sqlite3.OperationalError:
+    # Assume it's already been created
+    pass
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -93,14 +101,16 @@ def callback():
     client.parse_request_body_response(json.dumps(token_response.json()))
     userinfo_endpoint = google_provider_cfg['userinfo_endpoint']
     uri, headers, body = client.add_token(userinfo_endpoint)
-    userinfo_response = requests.get(uri, headers=heeaders, data=body)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
     if userinfo_response.json().get('email_verified'):
-        unique_id = userinfo_response.json()["sub"]
-        users_email = userinfo_response.json()['sub']
+        unique_id = userinfo_response.json()['sub']
+        users_email = userinfo_response.json()['email']
+        users_name = 'my name'
+        picture = 'pic.jpg'
     else:
         return "User email not available or not verified by Google.", 400
     
-    user = User(id_=unique_id, email=users_email)
+    user = User(id_=unique_id, name=users_name,email=users_email, profile_pic=picture)
 
     if not User.get(unique_id):
         User.create(unique_id, users_name, users_email, picture)
