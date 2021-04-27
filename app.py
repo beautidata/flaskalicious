@@ -19,7 +19,7 @@ from user import User
 
 def get_db_connection():
     #conn = sqlite3.connect('database.db')
-    conn = sqlite3.connect('sqlite_db')
+    conn = sqlite3.connect('sqlite.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -105,8 +105,8 @@ def callback():
     if userinfo_response.json().get('email_verified'):
         unique_id = userinfo_response.json()['sub']
         users_email = userinfo_response.json()['email']
-        users_name = 'my name'
-        picture = 'pic.jpg'
+        users_name = userinfo_response.json()['given_name']
+        picture = userinfo_response.json()['picture']
     else:
         return "User email not available or not verified by Google.", 400
     
