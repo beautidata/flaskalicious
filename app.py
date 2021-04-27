@@ -65,9 +65,9 @@ def index():
         conn = get_db_connection()
         posts = conn.execute('SELECT * FROM posts').fetchall()
         conn.close()
-        return render_template('index.html', posts=posts)
+        return render_template('index.html', posts=posts, user=current_user)
     else:
-        return '<a class="button" href="/login">Google Login</a>'
+        return render_template('index.html', user=current_user)
 
 @app.route('/login')
 def login():
@@ -127,7 +127,7 @@ def logout():
 @app.route('/<int:post_id>')
 def post(post_id):
     post = get_post(post_id)
-    return render_template('post.html', post=post)
+    return render_template('post.html', post=post, user=current_user)
 
 @app.route('/<page_name>')
 def page_not_found(page_name):
@@ -149,7 +149,7 @@ def create():
             conn.close()
             return redirect(url_for('index'))
     
-    return render_template('create.html')
+    return render_template('create.html', user=current_user)
 
 @app.route('/<int:id>/edit', methods=('GET', 'POST'))
 def edit(id):
@@ -170,7 +170,7 @@ def edit(id):
             conn.close()
             return redirect(url_for('index'))
 
-    return render_template('edit.html', post=post)
+    return render_template('edit.html', post=post, user=current_user)
 
 @app.route('/<int:id>/delete', methods=('POST',))
 def delete(id):
