@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} edit "{{ post['title']}}" {% endblock %}</h1>
+<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+
+
+<h1>{% block title %} edit "{{ post['title'] }}" {% endblock %}</h1>
 
 <form method="post">
 	<div class="form-group">
