@@ -1,6 +1,6 @@
 import sqlite3
 import json
-import os
+import psycopg2
 
 from flask import Flask, render_template, make_response, request, url_for, flash, redirect
 from flask_login import (
@@ -35,14 +35,11 @@ def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 app = Flask(__name__)
-#config = ConfigParser()
-#config.read_file(open('settings.ini'))
-#app.config['SECRET_KEY'] = config.get('flaskalicious', 'secret_key')
-app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
-GOOGLE_CLIENT_ID = os.environ['CLIENT_ID']
-GOOGLE_CLIENT_SECRET = os.environ['CLIENT_SECRET']
-#GOOGLE_CLIENT_ID = config.get('google', 'client_id')
-#GOOGLE_CLIENT_SECRET = config.get('google', 'client_secret')
+config = ConfigParser()
+config.read_file(open('settings.ini'))
+app.config['SECRET_KEY'] = config.get('flaskalicious', 'secret_key')
+GOOGLE_CLIENT_ID = config.get('google', 'client_id')
+GOOGLE_CLIENT_SECRET = config.get('google', 'client_secret')
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
