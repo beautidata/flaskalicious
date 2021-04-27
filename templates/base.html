@@ -25,6 +25,15 @@
             <li class="nav-item">
               <a class="nav-link" href="{{url_for('create')}}">create</a>
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}">logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('login')}}">login</a>
+            </li>
+            {% endif %}
             </ul>
         </div>
     </nav>
