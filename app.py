@@ -47,11 +47,11 @@ GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
 )
 
-#try:
-#    init_db_command()
-#except sqlite3.OperationalError:
-#    # Assume it's already been created
-#    pass
+try:
+    init_db_command()
+except sqlite3.OperationalError:
+    # Assume it's already been created
+    pass
 
 login_manager = LoginManager()
 login_manager.init_app(app)
