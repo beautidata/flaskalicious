@@ -11,6 +11,14 @@ this app requires you to generate your own `settins.ini` file to store a secret 
 secret_key = paste_your_secret_key_here
 ```
 
+### login with google
+
+in order to login with google, you must create oauth2.0 credentials.
+
+the authorized urls must be served over openssl or authentication will fail.
+
+this readme does not include steps for setting up these credentials.
+
 ### python 3.9.2
 
 to setup:
