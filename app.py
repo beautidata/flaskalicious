@@ -34,15 +34,18 @@ def get_post(post_id):
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
+def initialize_environment_variables():
+    config = ConfigParser()
+    config.read_file(open('settings.ini'))
+    secret_key = config.get('flaskalicious', 'secret_key')
+    client_id = config.get('google', 'client_id')
+    client_secret = config.get('google', 'client_secret')
+    discovery_url = ("https://accounts.google.com/.well-known/openid-configuration")
+    return secret_key, client_id, client_secret, discovery_url
+
+
 app = Flask(__name__)
-config = ConfigParser()
-config.read_file(open('settings.ini'))
-app.config['SECRET_KEY'] = config.get('flaskalicious', 'secret_key')
-GOOGLE_CLIENT_ID = config.get('google', 'client_id')
-GOOGLE_CLIENT_SECRET = config.get('google', 'client_secret')
-GOOGLE_DISCOVERY_URL = (
-    "https://accounts.google.com/.well-known/openid-configuration"
-)
+app.config['SECRET_KEY'], GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL = initialize_environment_variables()
 
 try:
     init_db_command()
