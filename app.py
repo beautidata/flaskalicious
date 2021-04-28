@@ -1,6 +1,5 @@
 import sqlite3
 import json
-import psycopg2
 
 from flask import Flask, render_template, make_response, request, url_for, flash, redirect
 from flask_login import (
